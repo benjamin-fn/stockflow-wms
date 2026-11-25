@@ -1,0 +1,16 @@
+export type Role='Administrator'|'Supervisor'|'Worker';
+export type Session={id:string;username:string;role:Role};
+export type Named={id:number;name:string};
+export type Product=Named & {sku:string;description:string;categoryId:number;supplierId:number;barcode:string;cost:number;unit:string;minimum:number;active:boolean};
+export type Supplier=Named & {contact:string;email:string;phone:string;address:string;organizationNumber:string;active:boolean};
+export type Location={id:number;zoneId:number;code:string;aisle:string;shelf:string;capacity:number;active:boolean};
+export type Balance={productId:number;locationId:number;quantity:number;reserved:number};
+export type ProductStock={product:Product;quantity:number;available:number;reserved:number;balances:Balance[]};
+export type Lookups={categories:Named[];suppliers:Supplier[];zones:Named[];locations:Location[];products:Product[]};
+export type Page<T>={total:number;items:T[]};
+export type Movement={id:number;productId:number;locationId:number;type:string;quantity:number;before:number;after:number;reference:string;user:string;reason:string;timestamp:string};
+export type Delivery={id:number;supplierId:number;reference:string;status:string;created:string;lines:{id:number;productId:number;locationId:number;expected:number;received:number}[]};
+export type Reservation={id:number;productId:number;locationId:number;quantity:number;picked:number};
+export type Order={id:number;reference:string;customer:string;status:string;created:string;lines:{id:number;productId:number;quantity:number}[];picking?:{assigneeId?:string;reservations:Reservation[]}};
+export type Count={id:number;status:string;created:string;reason:string;lines:{id:number;productId:number;locationId:number;expected:number;counted:number|null}[]};
+export type Dashboard={articles:number;quantity:number;value:number;low:number;incoming:number;outgoing:number;picking:number;alerts:{product:Product;quantity:number}[];recent:Movement[];categories:{name:string;quantity:number}[];statuses:{status:string;quantity:number}[];utilization:{name:string;capacity:number;quantity:number}[];activity:{date:string;incoming:number;outgoing:number}[]};
